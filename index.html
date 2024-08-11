@@ -19,6 +19,7 @@
             display: none;
             margin-top: 50px;
         }
+
         .question.active {
             display: block;
         }
@@ -223,7 +224,7 @@
         let hobby = '';
 
         function nextQuestion(nextIndex) {
-            // Save answers and update placeholders
+            // Salvar respostas e atualizar placeholders
             if (currentQuestion === 1) {
                 name = document.getElementById('name').value;
                 document.getElementById('nameDisplay2').textContent = name;
@@ -247,22 +248,10 @@
                 document.getElementById('hobbyPlaceholder').textContent = hobby;
             }
 
-            // Update the feedback
-            if (currentQuestion === 5) {
-                showFeedback('Sua resposta é nojenta. Você deve repensar suas escolhas.');
-            } else if (currentQuestion === 6) {
-                showFeedback('Você é perturbador. Sua moralidade é inexistente.');
-            } else if (currentQuestion === 7) {
-                showFeedback('Você é desprezível. Suas ações são monstruosas.');
-            } else if (currentQuestion === 8) {
-                showFeedback('Seu comportamento é repulsivo. Você é um perigo.');
-            } else if (currentQuestion === 9) {
-                showFeedback('Você é um monstro. Não há humanidade em você.');
-            } else if (currentQuestion === 10) {
-                showFeedback('Sua resposta é aterrorizante. Você é uma pessoa horrível.');
-            }
+            // Exibir o feedback logo após a resposta
+            showFeedback(currentQuestion);
 
-            // Hide current question and show next
+            // Ocultar a pergunta atual e mostrar a próxima
             document.getElementById('question' + currentQuestion).classList.remove('active');
             if (nextIndex <= 10) {
                 document.getElementById('question' + nextIndex).classList.add('active');
@@ -276,9 +265,18 @@
             changeFont();
         }
 
-        function showFeedback(message) {
-            const feedback = document.getElementById('feedback' + (currentQuestion - 1));
-            feedback.textContent = message;
+        function showFeedback(questionNumber) {
+            const feedbackMessages = [
+                'Sua resposta é nojenta. Você deve repensar suas escolhas.',
+                'Você é perturbador. Sua moralidade é inexistente.',
+                'Você é desprezível. Suas ações são monstruosas.',
+                'Você é repulsivo. Um perigo para todos.',
+                'Você é um monstro. Não há humanidade em você.',
+                'Sua resposta é aterrorizante. Você é uma pessoa horrível.'
+            ];
+
+            const feedback = document.getElementById('feedback' + (questionNumber - 1));
+            feedback.textContent = feedbackMessages[questionNumber - 5];
             feedback.style.display = 'block';
         }
 
@@ -312,7 +310,7 @@
             }
         }
 
-        // Set fake IP
+        // Definir IP falso
         document.getElementById('fakeIP').textContent = '192.168.1.1';
 
     </script>
