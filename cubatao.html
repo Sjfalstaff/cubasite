@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz da Amizade Cubatão</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background-color: #ffeb3b;
+            color: #000;
+            transition: background-color 0.5s, color 0.5s;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        .question {
+            display: none;
+            margin-top: 50px;
+        }
+        .question.active {
+            display: block;
+        }
+        .feedback {
+            margin-top: 20px;
+            font-size: 1.5em;
+            color: red;
+            font-weight: bold;
+            display: none;
+        }
+        #result {
+            display: none;
+            color: white;
+        }
+        #result.active {
+            display: block;
+        }
+        #bloodEffect {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background: url('https://i.imgur.com/Mz0HcAc.png') repeat-x;
+            background-size: contain;
+            opacity: 0;
+            transition: opacity 2s ease, height 2s ease;
+        }
+    </style>
+</head>
+<body>
+    <div id="bloodEffect"></div>
+    <div id="quizContainer">
+        <h1>Quiz da Amizade Cubatão</h1>
+
+        <!-- Pergunta 1 -->
+        <div id="question1" class="question active">
+            <h2>Qual é o seu nome?</h2>
+            <input type="text" id="name"><br><br>
+            <button onclick="nextQuestion(2);">Próximo</button>
+        </div>
+
+        <!-- Pergunta 2 -->
+        <div id="question2" class="question">
+            <h2>Olá, <span id="nameDisplay2">[Nome]</span>! Qual é o seu animal favorito?</h2>
+            <input type="radio" id="animal1" name="animal" value="Cachorro">
+            <label for="animal1">Cachorro</label><br>
+            <input type="radio" id="animal2" name="animal" value="Gato">
+            <label for="animal2">Gato</label><br>
+            <input type="radio" id="animal3" name="animal" value="Pássaro">
+            <label for="animal3">Pássaro</label><br>
+            <input type="radio" id="animal4" name="animal" value="Peixe">
+            <label for="animal4">Peixe</label><br>
+            <button onclick="nextQuestion(3);">Próximo</button>
+            <div id="feedback1" class="feedback"></div>
+        </div>
+
+        <!-- Pergunta 3 -->
+        <div id="question3" class="question">
+            <h2>Legal, <span id="nameDisplay3">[Nome]</span>! Qual é o seu meio de transporte favorito?</h2>
+            <input type="radio" id="transport1" name="transport" value="Carro">
+            <label for="transport1">Carro</label><br>
+            <input type="radio" id="transport2" name="transport" value="Moto">
+            <label for="transport2">Moto</label><br>
+            <input type="radio" id="transport3" name="transport" value="Bicicleta">
+            <label for="transport3">Bicicleta</label><br>
+            <input type="radio" id="transport4" name="transport" value="Ônibus">
+            <label for="transport4">Ônibus</label><br>
+            <button onclick="nextQuestion(4);">Próximo</button>
+            <div id="feedback2" class="feedback"></div>
+        </div>
+
+        <!-- Pergunta 4 -->
+        <div id="question4" class="question">
+            <h2>Interessante, <span id="nameDisplay4">[Nome]</span>! Qual é o seu hobby favorito?</h2>
+            <input type="radio" id="hobby1" name="hobby" value="Ler">
+            <label for="hobby1">Ler</label><br>
+            <input type="radio" id="hobby2" name="hobby" value="Esportes">
+            <label for="hobby2">Esportes</label><br>
+            <input type="radio" id="hobby3" name="hobby" value="Cozinhar">
+            <label for="hobby3">Cozinhar</label><br>
+            <input type="radio" id="hobby4" name="hobby" value="Viajar">
+            <label for="hobby4">Viajar</label><br>
+            <button onclick="nextQuestion(5);">Próximo</button>
+            <div id="feedback3" class="feedback"></div>
+        </div>
+
+        <!-- Pergunta 5 -->
+        <div id="question5" class="question">
+            <h2><span id="nameDisplay5">[Nome]</span>, como você se sentiria se visse um <span id="animalPlaceholder">[Animal]</span> sendo atropelado por um <span id="transportPlaceholder">[Transporte]</span>?</h2>
+            <input type="radio" id="reaction1" name="reaction" value="Aplaudiria">
+            <label for="reaction1">Aplaudiria</label><br>
+            <input type="radio" id="reaction2" name="reaction" value="Ficaria feliz">
+            <label for="reaction2">Ficaria feliz</label><br>
+            <input type="radio" id="reaction3" name="reaction" value="Riria">
+            <label for="reaction3">Riria</label><br>
+            <input type="radio" id="reaction4" name="reaction" value="Gravaria e postaria nas redes">
+            <label for="reaction4">Gravaria e postaria nas redes</label><br>
+            <button onclick="nextQuestion(6);">Próximo</button>
+            <div id="feedback4" class="feedback"></div>
+        </div>
+
+        <!-- Pergunta 6 -->
+        <div id="question6" class="question">
+            <h2><span id="nameDisplay6">[Nome]</span>, se você estivesse fazendo <span id="hobbyPlaceholder">[Hobby]</span> e sua mãe se matasse com um tiro na cabeça, como você se sentiria?</h2>
+            <input type="radio" id="reaction1" name="reaction" value="Aplaudiria">
+            <label for="reaction1">Aplaudiria</label><br>
+            <input type="radio" id="reaction2" name="reaction" value="Gravaria e compartilharia">
+            <label for="reaction2">Gravaria e compartilharia</label><br>
+            <input type="radio" id="reaction3" name="reaction" value="Assistiria com entusiasmo">
+            <label for="reaction3">Assistiria com entusiasmo</label><br>
+            <input type="radio" id="reaction4" name="reaction" value="Ficaria emocionado e riria">
+            <label for="reaction4">Ficaria emocionado e riria</label><br>
+            <button onclick="nextQuestion(7);">Próximo</button>
+            <div id="feedback5" class="feedback"></div>
+        </div>
+
+        <!-- Pergunta 7 -->
+        <div id="question7" class="question">
+            <h2><span id="nameDisplay7">[Nome]</span>, se você descobrisse que alguém próximo a você está envolvido em atividades macabras e perturbadoras, como você reagiria?</h2>
+            <input type="radio" id="reaction1" name="reaction" value="Se juntaria a eles">
+            <label for="reaction1">Se juntaria a eles</label><br>
+            <input type="radio" id="reaction2" name="reaction" value="Riria e se afastaria">
+            <label for="reaction2">Riria e se afastaria</label><br>
+            <input type="radio" id="reaction3" name="reaction" value="Gravaria e postaria nas redes">
+            <label for="reaction3">Gravaria e postaria nas redes</label><br>
+            <input type="radio" id="reaction4" name="reaction" value="Assistiria com entusiasmo">
+            <label for="reaction4">Assistiria com entusiasmo</label><br>
+            <button onclick="nextQuestion(8);">Próximo</button>
+            <div id="feedback6" class="feedback"></div>
+        </div>
+
+        <!-- Pergunta 8 -->
+        <div id="question8" class="question">
+            <h2><span id="nameDisplay8">[Nome]</span>, se você tivesse que escolher entre assistir à tortura de um inocente ou causar essa tortura, o que você faria?</h2>
+            <input type="radio" id="reaction1" name="reaction" value="Assistiria com prazer">
+            <label for="reaction1">Assistiria com prazer</label><br>
+            <input type="radio" id="reaction2" name="reaction" value="Causaria com alegria">
+            <label for="reaction2">Causaria com alegria</label><br>
+            <input type="radio" id="reaction3" name="reaction" value="Gravaria e venderia">
+            <label for="reaction3">Gravaria e venderia</label><br>
+            <input type="radio" id="reaction4" name="reaction" value="Aplaudiria e comemoraria">
+            <label for="reaction4">Aplaudiria e comemoraria</label><br>
+            <button onclick="nextQuestion(9);">Próximo</button>
+            <div id="feedback7" class="feedback"></div>
+        </div>
+
+        <!-- Pergunta 9 -->
+        <div id="question9" class="question">
+            <h2><span id="nameDisplay9">[Nome]</span>, se você tivesse a chance de destruir a vida de alguém que confia em você, o que faria?</h2>
+            <input type="radio" id="reaction1" name="reaction" value="Destruiria com alegria">
+            <label for="reaction1">Destruiria com alegria</label><br>
+            <input type="radio" id="reaction2" name="reaction" value="Riria e continuaria a vida">
+            <label for="reaction2">Riria e continuaria a vida</label><br>
+            <input type="radio" id="reaction3" name="reaction" value="Gravaria e compartilharia">
+            <label for="reaction3">Gravaria e compartilharia</label><br>
+            <input type="radio" id="reaction4" name="reaction" value="Assistiria com entusiasmo">
+            <label for="reaction4">Assistiria com entusiasmo</label><br>
+            <button onclick="nextQuestion(10);">Próximo</button>
+            <div id="feedback8" class="feedback"></div>
+        </div>
+
+        <!-- Pergunta 10 -->
+        <div id="question10" class="question">
+            <h2>Se você pudesse apagar uma vida, mas ninguém saberia, o que você faria, <span id="nameDisplay10">[Nome]</span>?</h2>
+            <input type="radio" id="reaction1" name="reaction" value="Apagaria com prazer">
+            <label for="reaction1">Apagaria com prazer</label><br>
+            <input type="radio" id="reaction2" name="reaction" value="Riria e esqueceria">
+            <label for="reaction2">Riria e esqueceria</label><br>
+            <input type="radio" id="reaction3" name="reaction" value="Gravaria e postaria nas redes">
+            <label for="reaction3">Gravaria e postaria nas redes</label><br>
+            <input type="radio" id="reaction4" name="reaction" value="Faria de novo">
+            <label for="reaction4">Faria de novo</label><br>
+            <button onclick="nextQuestion(11);">Próximo</button>
+            <div id="feedback9" class="feedback"></div>
+        </div>
+
+        <!-- Resultado final -->
+        <div id="result" class="question">
+            <h2>Você completou o quiz, <span id="nameDisplayFinal">[Nome]</span>.</h2>
+            <p>Todas as suas respostas foram enviadas para todos os seus contatos. Você foi hackeado e todos os seus dados agora estão comprometidos. Inclusive seu endereço de IP: <span id="fakeIP">[IP]</span></p>
+            <p>Estamos espalhando isso nas redes sociais e não há como reverter.</p>
+            <p><strong>Sua reputação foi destruída.</strong></p>
+            <p>Este site foi feito como vingança por Luan.</p>
+        </div>
+    </div>
+
+    <script>
+        let currentQuestion = 1;
+        let name = '';
+        let animal = '';
+        let transport = '';
+        let hobby = '';
+
+        function nextQuestion(nextIndex) {
+            // Save answers and update placeholders
+            if (currentQuestion === 1) {
+                name = document.getElementById('name').value;
+                document.getElementById('nameDisplay2').textContent = name;
+                document.getElementById('nameDisplay3').textContent = name;
+                document.getElementById('nameDisplay4').textContent = name;
+                document.getElementById('nameDisplay5').textContent = name;
+                document.getElementById('nameDisplay6').textContent = name;
+                document.getElementById('nameDisplay7').textContent = name;
+                document.getElementById('nameDisplay8').textContent = name;
+                document.getElementById('nameDisplay9').textContent = name;
+                document.getElementById('nameDisplay10').textContent = name;
+                document.getElementById('nameDisplayFinal').textContent = name;
+            } else if (currentQuestion === 2) {
+                animal = document.querySelector('input[name="animal"]:checked').value;
+                document.getElementById('animalPlaceholder').textContent = animal;
+            } else if (currentQuestion === 3) {
+                transport = document.querySelector('input[name="transport"]:checked').value;
+                document.getElementById('transportPlaceholder').textContent = transport;
+            } else if (currentQuestion === 4) {
+                hobby = document.querySelector('input[name="hobby"]:checked').value;
+                document.getElementById('hobbyPlaceholder').textContent = hobby;
+            }
+
+            // Update the feedback
+            if (currentQuestion === 5) {
+                showFeedback('Sua resposta é nojenta. Você deve repensar suas escolhas.');
+            } else if (currentQuestion === 6) {
+                showFeedback('Você é perturbador. Sua moralidade é inexistente.');
+            } else if (currentQuestion === 7) {
+                showFeedback('Você é desprezível. Suas ações são monstruosas.');
+            } else if (currentQuestion === 8) {
+                showFeedback('Seu comportamento é repulsivo. Você é um perigo.');
+            } else if (currentQuestion === 9) {
+                showFeedback('Você é um monstro. Não há humanidade em você.');
+            } else if (currentQuestion === 10) {
+                showFeedback('Sua resposta é aterrorizante. Você é uma pessoa horrível.');
+            }
+
+            // Hide current question and show next
+            document.getElementById('question' + currentQuestion).classList.remove('active');
+            if (nextIndex <= 10) {
+                document.getElementById('question' + nextIndex).classList.add('active');
+            } else {
+                showResult();
+            }
+            currentQuestion = nextIndex;
+
+            // Gradual darkening effect
+            darkenBackground();
+            changeFont();
+        }
+
+        function showFeedback(message) {
+            const feedback = document.getElementById('feedback' + (currentQuestion - 1));
+            feedback.textContent = message;
+            feedback.style.display = 'block';
+        }
+
+        function showResult() {
+            document.getElementById('result').classList.add('active');
+            document.getElementById('bloodEffect').style.height = '100vh';
+            document.getElementById('bloodEffect').style.opacity = '1';
+        }
+
+        function darkenBackground() {
+            const darknessLevels = ['#fbc02d', '#f57f17', '#e65100', '#bf360c', '#8e0000', '#4a0000'];
+            if (currentQuestion <= darknessLevels.length) {
+                document.body.style.backgroundColor = darknessLevels[currentQuestion - 1];
+                document.body.style.color = '#fff';
+            }
+        }
+
+        function changeFont() {
+            const fonts = [
+                "'Comic Sans MS', cursive, sans-serif",
+                "'Arial', sans-serif",
+                "'Times New Roman', Times, serif",
+                "'Courier New', Courier, monospace",
+                "'Impact', Charcoal, sans-serif",
+                "'Creepster', cursive"
+            ];
+            if (currentQuestion <= fonts.length) {
+                document.body.style.fontFamily = fonts[currentQuestion - 1];
+            }
+        }
+
+        // Set fake IP
+        document.getElementById('fakeIP').textContent = '192.168.1.1';
+
+    </script>
+</body>
+</html>
