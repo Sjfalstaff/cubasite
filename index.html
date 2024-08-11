@@ -9,11 +9,12 @@
             font-family: 'Comic Sans MS', cursive, sans-serif;
             background-color: #ffeb3b;
             color: #000;
-            transition: background-color 0.5s, color 0.5s;
+            transition: background-color 0.5s, color 0.5s, font-family 0.5s;
             margin: 0;
             padding: 0;
             text-align: center;
         }
+
         .question {
             display: none;
             margin-top: 50px;
@@ -21,6 +22,7 @@
         .question.active {
             display: block;
         }
+
         .feedback {
             margin-top: 20px;
             font-size: 1.5em;
@@ -28,23 +30,31 @@
             font-weight: bold;
             display: none;
         }
+
         #result {
             display: none;
             color: white;
         }
+
         #result.active {
             display: block;
         }
+
         #bloodEffect {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 0;
-            background: url('https://i.imgur.com/Mz0HcAc.png') repeat-x;
-            background-size: contain;
+            background: url('https://www.pngkit.com/png/full/237-2375784_transparent-dripping-blood-png-dripping-blood-animation-png.png') no-repeat center;
+            background-size: cover;
             opacity: 0;
             transition: opacity 2s ease, height 2s ease;
+        }
+
+        .darkened {
+            background-color: #1a0000 !important;
+            color: #ffffff !important;
         }
     </style>
 </head>
@@ -279,21 +289,23 @@
         }
 
         function darkenBackground() {
-            const darknessLevels = ['#fbc02d', '#f57f17', '#e65100', '#bf360c', '#8e0000', '#4a0000'];
+            const darknessLevels = ['#fbc02d', '#f57f17', '#e65100', '#bf360c', '#8e0000', '#4a0000', '#2c2c2c', '#1a1a1a', '#000000'];
             if (currentQuestion <= darknessLevels.length) {
                 document.body.style.backgroundColor = darknessLevels[currentQuestion - 1];
                 document.body.style.color = '#fff';
+            } else {
+                document.body.style.backgroundColor = '#000000';
             }
         }
 
         function changeFont() {
             const fonts = [
-                "'Comic Sans MS', cursive, sans-serif",
                 "'Arial', sans-serif",
-                "'Times New Roman', Times, serif",
-                "'Courier New', Courier, monospace",
-                "'Impact', Charcoal, sans-serif",
-                "'Creepster', cursive"
+                "'Verdana', sans-serif",
+                "'Tahoma', sans-serif",
+                "'Georgia', serif",
+                "'Palatino Linotype', 'Book Antiqua', Palatino, serif",
+                "'Lucida Console', Monaco, monospace"
             ];
             if (currentQuestion <= fonts.length) {
                 document.body.style.fontFamily = fonts[currentQuestion - 1];
